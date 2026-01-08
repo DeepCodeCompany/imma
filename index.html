@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sitio informativo (borrador) del Instituto de la Mujer del Municipio de Aguascalientes." />
+  <title>Instituto de la Mujer | Municipio de Aguascalientes</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#101a2f;
+      --muted:#93a4c7;
+      --text:#e9eefc;
+      --brand:#f4c542;
+      --brand2:#a78bfa;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --line:rgba(255,255,255,.08);
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(167,139,250,.25), transparent 60%),
+                  radial-gradient(1000px 700px at 110% 10%, rgba(244,197,66,.20), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:0 18px}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,.70);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      height:64px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand2) 100%);
+      box-shadow: 0 10px 20px rgba(0,0,0,.25);
+      display:grid;place-items:center;
+      color:#0b1220;font-weight:900;
+    }
+    .brand small{display:block;font-weight:600;color:var(--muted);letter-spacing:0}
+    .links{
+      display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+      font-weight:600;color:var(--muted);
+    }
+    .links a{
+      text-decoration:none;padding:10px 10px;border-radius:12px;
+    }
+    .links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:11px 14px;border-radius:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      text-decoration:none;
+      font-weight:700;
+      gap:10px;
+      cursor:pointer;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(244,197,66,.95), rgba(167,139,250,.85));
+      color:#0b1220;border:none;
+    }
+    .btn.primary:hover{filter:saturate(1.05) brightness(1.02)}
+    .btn:hover{background:rgba(255,255,255,.09)}
+    .hero{padding:44px 0 20px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+      .links{display:none}
+    }
+    .card{
+      background: rgba(16,26,47,.72);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    .hero-card{
+      padding:26px;
+      position:relative;
+      isolation:isolate;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute;inset:-2px;
+      background: radial-gradient(600px 220px at 20% 10%, rgba(244,197,66,.18), transparent 60%),
+                  radial-gradient(700px 240px at 90% 20%, rgba(167,139,250,.22), transparent 55%);
+      z-index:-1;
+    }
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      color:var(--muted);font-weight:700;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+    }
+    .dot{width:9px;height:9px;border-radius:999px;background:var(--brand)}
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height:1.12;
+      letter-spacing:-.3px;
+    }
+    p.lead{margin:0 0 18px;color:rgba(233,238,252,.88);font-size:1.05rem}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .aside{
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+    .stat{
+      padding:14px;border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+    }
+    .stat strong{display:block;font-size:1.05rem}
+    .stat span{color:var(--muted);font-weight:600}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:.92rem;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(34,197,94,.12);
+      border:1px solid rgba(34,197,94,.25);
+      color:#bff5cf;
+      font-weight:700;
+      margin-top:6px;
+    }
+    .section{padding:18px 0 10px}
+    .section h2{
+      margin:0 0 10px;
+      font-size: clamp(20px, 2.2vw, 28px);
+      letter-spacing:-.2px;
+    }
+    .muted{color:var(--muted)}
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 900px){
+      .grid-3{grid-template-columns:1fr}
+    }
+    .tile{padding:18px}
+    .tile h3{margin:8px 0 6px;font-size:1.05rem}
+    .icon{
+      width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      font-size:20px;
+    }
+    .list{
+      margin:10px 0 0;padding:0;list-style:none;
+      display:grid;gap:10px;
+    }
+    .list li{
+      padding:12px 12px;border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      display:flex;gap:10px;align-items:flex-start;
+    }
+    .pill{
+      font-size:.82rem;font-weight:800;
+      padding:6px 10px;border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:rgba(233,238,252,.9);
+      white-space:nowrap;
+    }
+    .callout{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(239,68,68,.28);
+      background:rgba(239,68,68,.08);
+    }
+    .callout h3{margin:0 0 6px}
+    .split{
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    }
+    @media (max-width: 900px){
+      .split{grid-template-columns:1fr}
+    }
+    .footer{
+      padding:24px 0 34px;
+      border-top:1px solid var(--line);
+      margin-top:18px;
+      color:var(--muted);
+    }
+    .mini{
+      font-size:.92rem;
+      color:rgba(147,164,199,.95);
+    }
+    .input, textarea{
+      width:100%;
+      padding:12px 14px;border-radius:14px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      color:var(--text);
+      outline:none;
+      font-size:1rem;
+    }
+    textarea{min-height:110px;resize:vertical}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width: 700px){
+      .form-row{grid-template-columns:1fr}
+    }
+    .hint{margin-top:8px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+    @media print{
+      .nav,.hero-actions,.btn{display:none!important}
+      body{background:#fff;color:#111}
+      .card{box-shadow:none;background:#fff;border:1px solid #ddd}
+      .muted{color:#444}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand" aria-label="Instituto de la Mujer, Municipio de Aguascalientes">
+        <div class="logo" aria-hidden="true">IM</div>
+        <div>
+          Instituto de la Mujer
+          <small>Municipio de Aguascalientes</small>
+        </div>
+      </div>
+      <nav class="links" aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#programas">Programas</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn primary" href="#contacto" title="Ir a Contacto">Agendar orientación</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="card hero-card">
+          <div class="kicker"><span class="dot"></span> Sitio de prueba · HTML estático listo para publicar</div>
+          <h1>Atención, orientación y acompañamiento para mujeres en Aguascalientes</h1>
+          <p class="lead">
+            Espacio informativo para difundir servicios municipales: orientación psicológica, asesoría jurídica,
+            talleres y canalización a redes de apoyo. Puedes personalizar textos, teléfonos y horarios.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#servicios">Ver servicios</a>
+            <a class="btn" href="#recursos">Recursos y guías</a>
+            <a class="btn" href="#contacto">Contacto</a>
+          </div>
+          <div class="hr"></div>
+          <p class="mini muted">
+            Nota: Este es un <strong>demo</strong> (no oficial). Sustituye la información con datos reales del Instituto.
+          </p>
+        </div>
+
+        <aside class="card aside" aria-label="Información rápida">
+          <div class="stat">
+            <strong>Orientación inicial</strong>
+            <span>Canalización y seguimiento</span>
+            <div class="badge" title="Atención prioritaria">✅ Atención prioritaria</div>
+          </div>
+          <div class="stat">
+            <strong>Talleres y capacitación</strong>
+            <span>Autonomía económica y bienestar</span>
+          </div>
+          <div class="stat">
+            <strong>Vinculación</strong>
+            <span>Redes de apoyo y servicios municipales</span>
+          </div>
+          <div class="callout">
+            <h3>En caso de emergencia</h3>
+            <p class="mini" style="margin:0">
+              Si estás en peligro inmediato, llama al <strong>911</strong>.
+              Para asesoría y acompañamiento, agrega aquí números locales oficiales.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="servicios" class="section">
+      <div class="container">
+        <h2>Servicios</h2>
+        <p class="muted">Apoyo integral con enfoque de derechos y perspectiva de género.</p>
+
+        <div class="grid-3">
+          <div class="card tile">
+            <div class="icon" aria-hidden="true">🧠</div>
+            <h3>Orientación psicológica</h3>
+            <p class="muted">Primer contacto, contención emocional, plan de seguridad y referencias a atención especializada.</p>
+            <ul class="list">
+              <li><span class="pill">Incluye</span> Sesión de orientación y seguimiento</li>
+              <li><span class="pill">Canaliza</span> Atención externa cuando aplique</li>
+            </ul>
+          </div>
+
+          <div class="card tile">
+            <div class="icon" aria-hidden="true">⚖️</div>
+            <h3>Asesoría jurídica</h3>
+            <p class="muted">Información y acompañamiento en trámites, derechos, medidas de protección y rutas institucionales.</p>
+            <ul class="list">
+              <li><span class="pill">Guía</span> Documentación y pasos</li>
+              <li><span class="pill">Apoya</span> Canalización a instancias</li>
+            </ul>
+          </div>
+
+          <div class="card tile">
+            <div class="icon" aria-hidden="true">🎓</div>
+            <h3>Capacitación y talleres</h3>
+            <p class="muted">Habilidades para el empleo, finanzas, autocuidado, crianza positiva y prevención de violencias.</p>
+            <ul class="list">
+              <li><span class="pill">Modalidad</span> Presencial / Mixta</li>
+              <li><span class="pill">Temas</span> Bienestar y autonomía</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programas" class="section">
+      <div class="container">
+        <h2>Programas prioritarios</h2>
+        <p class="muted">Ejemplos de secciones que puedes ajustar a la oferta real del municipio.</p>
+
+        <div class="split">
+          <div class="card tile">
+            <h3>Prevención y atención a violencias</h3>
+            <p class="muted">Información sobre señales de riesgo, rutas de atención, y acompañamiento para denuncias y medidas de protección.</p>
+            <ul class="list">
+              <li><span class="pill">Ruta</span> Orientación → Canalización → Seguimiento</li>
+              <li><span class="pill">Apoyo</span> Plan de seguridad personal</li>
+              <li><span class="pill">Red</span> Enlaces con servicios municipales</li>
+            </ul>
+          </div>
+
+          <div class="card tile">
+            <h3>Autonomía económica</h3>
+            <p class="muted">Talleres de emprendimiento, bolsa de trabajo, capacitación y educación financiera.</p>
+            <ul class="list">
+              <li><span class="pill">Taller</span> Emprendimiento y ventas</li>
+              <li><span class="pill">Taller</span> Finanzas personales</li>
+              <li><span class="pill">Vincula</span> Programas sociales / empleo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos" class="section">
+      <div class="container">
+        <h2>Recursos</h2>
+        <p class="muted">Material breve para compartir. Sustituye por PDFs/links oficiales cuando los tengas.</p>
+
+        <div class="grid-3">
+          <div class="card tile">
+            <div class="icon" aria-hidden="true">📄</div>
+            <h3>Guía rápida</h3>
+            <p class="muted">Qué hacer ante una situación de violencia: pasos, documentos útiles y contactos.</p>
+            <a class="btn" href="#" onclick="showToast('Demo: aquí puedes enlazar un PDF o una página interna.', 'warn'); return false;">Ver guía</a>
+          </div>
+          <div class="card tile">
+            <div class="icon" aria-hidden="true">📍</div>
+            <h3>Ubicaciones</h3>
+            <p class="muted">Direcciones de módulos, horarios y mapas (agrega Google Maps si lo deseas).</p>
+            <a class="btn" href="#contacto">Ver contacto</a>
+          </div>
+          <div class="card tile">
+            <div class="icon" aria-hidden="true">🤝</div>
+            <h3>Red de apoyo</h3>
+            <p class="muted">Instituciones, asociaciones y servicios de emergencia. Mantén la lista actualizada.</p>
+            <a class="btn" href="#contacto">Solicitar orientación</a>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="card tile">
+          <h3>Preguntas frecuentes</h3>
+          <ul class="list" aria-label="Preguntas frecuentes">
+            <li>
+              <span class="pill">FAQ</span>
+              <div>
+                <strong>¿La orientación tiene costo?</strong>
+                <div class="muted mini">Demo: Indica aquí si es gratuita y qué servicios tienen cupo limitado.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pill">FAQ</span>
+              <div>
+                <strong>¿Qué documentos necesito?</strong>
+                <div class="muted mini">Demo: Identificación oficial, comprobante, actas, según el trámite.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pill">FAQ</span>
+              <div>
+                <strong>¿Cómo agendo una cita?</strong>
+                <div class="muted mini">Demo: Llamada, WhatsApp, formulario o ventanilla. Coloca el método real.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section">
+      <div class="container">
+        <h2>Contacto</h2>
+        <p class="muted">Completa los datos reales. Este formulario es solo visual (no envía sin backend).</p>
+
+        <div class="split">
+          <div class="card tile">
+            <h3>Datos (edítalos)</h3>
+            <ul class="list">
+              <li><span class="pill">📞 Teléfono</span> <div><strong>(449) 000 0000</strong><div class="muted mini">Sustituye por el número oficial</div></div></li>
+              <li><span class="pill">💬 WhatsApp</span> <div><strong>(449) 000 0000</strong><div class="muted mini">Opcional</div></div></li>
+              <li><span class="pill">🕘 Horario</span> <div><strong>Lun–Vie 9:00–17:00</strong><div class="muted mini">Ajusta según atención</div></div></li>
+              <li><span class="pill">📍 Dirección</span> <div><strong>Centro, Aguascalientes</strong><div class="muted mini">Agrega calle, número y CP</div></div></li>
+            </ul>
+            <div class="hr"></div>
+            <div class="callout">
+              <h3>Ayuda inmediata</h3>
+              <p class="mini" style="margin:0">
+                Si hay riesgo, llama a <strong>911</strong>. Este sitio es un demo: añade teléfonos locales oficiales y protocolos.
+              </p>
+            </div>
+          </div>
+
+          <div class="card tile">
+            <h3>Formulario de orientación (demo)</h3>
+            <form onsubmit="return handleSubmit(event)">
+              <div class="form-row">
+                <div>
+                  <label class="mini muted" for="nombre">Nombre</label>
+                  <input class="input" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                </div>
+                <div>
+                  <label class="mini muted" for="telefono">Teléfono</label>
+                  <input class="input" id="telefono" name="telefono" placeholder="(449) 000 0000" required />
+                </div>
+              </div>
+              <div style="margin-top:12px">
+                <label class="mini muted" for="correo">Correo (opcional)</label>
+                <input class="input" id="correo" name="correo" type="email" placeholder="tucorreo@ejemplo.com" />
+              </div>
+              <div style="margin-top:12px">
+                <label class="mini muted" for="mensaje">¿En qué podemos apoyarte?</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Escribe brevemente tu solicitud" required></textarea>
+              </div>
+              <div class="hint mini muted">
+                Al ser HTML estático, esto no se envía. Si quieres que envíe, puedes conectar Netlify Forms, Formspree o un backend.
+              </div>
+              <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap">
+                <button class="btn primary" type="submit">Guardar solicitud (demo)</button>
+                <button class="btn" type="button" onclick="fillExample()">Autollenar ejemplo</button>
+              </div>
+            </form>
+
+            <div id="toast" class="mini" style="display:none; margin-top:14px; padding:12px 14px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.04)"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card tile">
+          <h2 style="margin-top:0">Cómo publicar rápido</h2>
+          <ol class="muted" style="margin:10px 0 0; padding-left:18px">
+            <li>Guarda este archivo como <strong>index.html</strong>.</li>
+            <li>Sube a GitHub (repositorio) o arrástralo a Netlify/Vercel/Cloudflare Pages.</li>
+            <li>Si usas GitHub Pages: configura “Pages” y conecta tu dominio con registros DNS.</li>
+          </ol>
+          <p class="mini muted" style="margin-top:12px">
+            ¿Quieres que también te lo deje listo en estructura para React (Vite) y con SPA en GitHub Pages?
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div style="display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap; align-items:center">
+        <div>
+          <strong style="color:rgba(233,238,252,.95)">Instituto de la Mujer · Municipio de Aguascalientes</strong>
+          <div class="mini">Demo para pruebas · Reemplaza contenidos y datos de contacto por información oficial.</div>
+        </div>
+        <div class="mini">© <span id="year"></span> · HTML estático</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    function showToast(message, kind){
+      const el = document.getElementById("toast");
+      if(!el) return;
+      el.style.display = "block";
+      el.textContent = message;
+
+      el.style.borderColor = "rgba(255,255,255,.12)";
+      el.style.background = "rgba(255,255,255,.04)";
+
+      if(kind === "ok"){
+        el.style.borderColor = "rgba(34,197,94,.35)";
+        el.style.background = "rgba(34,197,94,.10)";
+      }else if(kind === "warn"){
+        el.style.borderColor = "rgba(245,158,11,.35)";
+        el.style.background = "rgba(245,158,11,.10)";
+      }else if(kind === "danger"){
+        el.style.borderColor = "rgba(239,68,68,.35)";
+        el.style.background = "rgba(239,68,68,.10)";
+      }
+
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(() => { el.style.display = "none"; }, 6000);
+    }
+
+    function fillExample(){
+      document.getElementById("nombre").value = "María López";
+      document.getElementById("telefono").value = "(449) 123 4567";
+      document.getElementById("correo").value = "maria@ejemplo.com";
+      document.getElementById("mensaje").value = "Me gustaría información sobre talleres y orientación jurídica.";
+      showToast("Ejemplo autollenado. Puedes enviar (demo) para ver el mensaje de confirmación.", "warn");
+    }
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const nombre = (document.getElementById("nombre") || {}).value || "tu solicitud";
+      showToast("Listo, " + nombre + ": tu solicitud quedó guardada (demo). Agrega un servicio de envío si quieres recibirla por correo.", "ok");
+      return false;
+    }
+  </script>
+</body>
+</html>
