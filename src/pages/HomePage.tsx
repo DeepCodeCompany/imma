@@ -87,7 +87,7 @@ export default function HomePage() {
               </p>
 
               <Link to="/casas" className="mt-5 inline-flex btn-primary">
-                Ver ubicaciones
+                Ver ubicaciones Ags
               </Link>
 
               <div className="mt-6 rounded-3xl bg-white p-5 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
