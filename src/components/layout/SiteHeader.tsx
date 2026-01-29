@@ -1,5 +1,5 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import logoImma from "../../assets/LOGO-IMMA-PRINCIPAL.png";
 
 const links = [
   { to: "/quienes-somos", label: "¿Quiénes somos?" },
@@ -34,17 +34,11 @@ function SocialIcon({
 }
 
 export default function SiteHeader() {
-  const [logoOk, setLogoOk] = useState(true);
-  const { pathname } = useLocation();
-
-  // Cierra menú móvil al cambiar ruta
-  useEffect(() => {}, [pathname]);
-
   return (
     <header className="w-full">
       {/* BANNER MORADO GRANDE */}
       <div
-        className="min-h-[220px] md:min-h-[260px]"
+        className="min-h-[260px] md:min-h-[340px] lg:min-h-[380px]"
         style={{
           backgroundImage:
             "radial-gradient(1200px 300px at 50% 20%, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg, #7a1fa2 0%, #8e24aa 45%, #6a1b9a 100%), repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 10px)",
@@ -53,34 +47,19 @@ export default function SiteHeader() {
         }}
       >
         <div className="container-app py-10 md:py-12">
-          <div className="flex flex-col items-center justify-center gap-6 text-center md:flex-row md:text-left">
-            {/* Logo */}
-            <div className="grid place-items-center">
-              <div className="rounded-3xl bg-white p-4 shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
-                {logoOk ? (
-                  <img
-                    src="/assets/imma-logo.png"
-                    alt="IMMA"
-                    className="h-16 w-16 object-contain"
-                    onError={() => setLogoOk(false)}
-                  />
-                ) : (
-                  <div className="grid h-16 w-16 place-items-center rounded-2xl bg-violet-700 text-white font-bold text-xl">
-                    IM
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Texto */}
-            <div className="text-white drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)]">
-              <div className="text-base font-medium tracking-wide md:text-lg">
-                INSTITUTO MUNICIPAL DE LA
-              </div>
-              <div className="text-3xl font-extrabold leading-tight md:text-4xl">
-                MUJER DE
-                <br className="hidden md:block" />
-                AGUASCALIENTES
+          <div className="flex flex-col items-center justify-center gap-6 text-center">
+            {/* Logo grande centrado (sin placa blanca, para PNG transparente) */}
+            <div className="flex justify-center">
+              <div className="rounded-[2.25rem] p-2 md:p-3">
+                <img
+                  src={logoImma}
+                  alt="IMMA"
+                  className="
+        h-28 w-auto sm:h-32 md:h-52 lg:h-60 object-contain
+        drop-shadow-[0_18px_40px_rgba(0,0,0,0.35)]
+        [filter:drop-shadow(0_0_18px_rgba(255,255,255,0.25))]
+      "
+                />
               </div>
             </div>
           </div>
