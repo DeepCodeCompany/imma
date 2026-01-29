@@ -1,0 +1,78 @@
+@config "../../tailwind.config.js";
+@import "tailwindcss";
+
+/* =========================
+   Base global (más grande y llamativo)
+========================= */
+@layer base {
+  body {
+    @apply bg-[#f7f7fb] text-slate-900;
+    font-family: "Montserrat", ui-sans-serif, system-ui, "Segoe UI", Roboto,
+      Arial;
+    font-size: 18px;
+  }
+
+  h1 {
+    @apply font-black tracking-tight;
+  }
+  h2 {
+    @apply font-extrabold tracking-tight;
+  }
+  h3 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+/* =========================
+   Componentes reutilizables
+========================= */
+@layer components {
+  .container-app {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-3xl border border-slate-200/70 bg-white shadow-soft;
+  }
+
+  .page-title {
+    @apply text-4xl md:text-5xl font-black uppercase tracking-wide text-imma-700;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-extrabold tracking-tight;
+  }
+
+  .muted {
+    @apply text-slate-600;
+  }
+
+  /* Botones grandes */
+  /* Botones grandes (sin clase intermedia .btn porque @apply no la acepta) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-2xl px-6 py-3 text-base font-bold transition
+      bg-imma-700 text-white hover:bg-imma-800;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-2xl px-6 py-3 text-base font-bold transition
+      border border-slate-300 bg-white text-slate-900 hover:bg-slate-50;
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-full bg-imma-100 px-4 py-2 text-sm font-bold text-imma-800;
+  }
+
+  /* Bloques morados tipo “barra” */
+  .block-title {
+    @apply w-full bg-imma-700 text-white font-black uppercase tracking-wide text-center py-4 rounded-t-2xl;
+  }
+
+  .pdf-row {
+    @apply flex items-center gap-4 px-6 py-5 bg-imma-100/70;
+  }
+
+  .pdf-link {
+    @apply text-imma-700 font-bold hover:underline;
+  }
+}
