@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import logoImma from "../../assets/logo-imma.png";
 
 const links = [
   { to: "/quienes-somos", label: "¿Quiénes somos?" },
@@ -52,7 +51,7 @@ export default function SiteHeader() {
             <div className="flex justify-center">
               <div className="rounded-[2.25rem] p-2 md:p-3">
                 <img
-                  src={logoImma}
+                  src="/logo-imma.png"
                   alt="IMMA"
                   className="
         h-28 w-auto sm:h-32 md:h-52 lg:h-60 object-contain
