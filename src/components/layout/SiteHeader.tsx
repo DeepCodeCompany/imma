@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logoImma from "../../assets/LOGO-IMMA-PRINCIPAL.png";
+import logoImma from "../../assets/logo-imma-principal.png";
 
 const links = [
   { to: "/quienes-somos", label: "¿Quiénes somos?" },
