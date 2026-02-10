@@ -1,0 +1,59 @@
+name: Deploy IMMA (Vite + React) to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # (Opcional) Verifica que el logo esté en dist
+      - name: Verify dist
+        run: |
+          ls -la dist
+          test -f dist/index.html
+          # Si tu logo está en dist/logo-imma.png, valida:
+          test -f dist/logo-imma.png || echo "logo-imma.png not found in dist (check public/)"
+
+      # IMPORTANTÍSIMO: sube dist como artifact para Pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

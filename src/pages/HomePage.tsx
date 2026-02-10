@@ -71,7 +71,7 @@ export default function HomePage() {
 
               <div className="mt-6 inline-flex items-center rounded-2xl bg-[#efe9f8] px-5 py-3 text-sm font-bold text-imma-800">
                 Línea de ayuda / Información:{" "}
-                <span className="ml-2">449 000 0000</span>
+                <span className="ml-2">449 9157439</span>
               </div>
             </div>
 
@@ -87,7 +87,7 @@ export default function HomePage() {
               </p>
 
               <Link to="/casas" className="mt-5 inline-flex btn-primary">
-                Ver ubicaciones
+                Ver ubicaciones Ags
               </Link>
 
               <div className="mt-6 rounded-3xl bg-white p-5 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
