@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logoImma from "../../assets/LOGO-IMMA-PRINCIPAL.png";
+import logoCompacto from "../../assets/LOGO-IMMA-COMPACTO.png";
 
 const links = [
   { to: "/quienes-somos", label: "¿Quiénes somos?" },
@@ -36,66 +37,46 @@ function SocialIcon({
 export default function SiteHeader() {
   return (
     <header className="w-full">
-      {/* BANNER MORADO GRANDE */}
-      <div
-        className="min-h-[260px] md:min-h-[340px] lg:min-h-[380px]"
-        style={{
-          backgroundImage:
-            "radial-gradient(1200px 300px at 50% 20%, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg, #7a1fa2 0%, #8e24aa 45%, #6a1b9a 100%), repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 10px)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="container-app py-10 md:py-12">
-          <div className="flex flex-col items-center justify-center gap-6 text-center">
-            {/* Logo grande centrado (sin placa blanca, para PNG transparente) */}
-            <div className="flex justify-center">
-              <div className="rounded-[2.25rem] p-2 md:p-3">
-                <img
-                  src={logoImma}
-                  alt="IMMA"
-                  className="
-        h-28 w-auto sm:h-32 md:h-52 lg:h-60 object-contain
-        drop-shadow-[0_18px_40px_rgba(0,0,0,0.35)]
-        [filter:drop-shadow(0_0_18px_rgba(255,255,255,0.25))]
-      "
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* BARRA GRIS DEL MENÚ */}
-      <div className="bg-[#E6E6EF] border-b border-slate-300">
+      {/* BARRA GRIS DEL MENÚ (FIJA SIEMPRE) */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-[#E6E6EF] border-b border-slate-300 shadow-sm">
         <div className="container-app">
           <div className="flex items-center justify-between gap-4 py-3">
-            {/* Menú */}
-            <nav className="flex flex-wrap items-center">
-              {links.map((l, idx) => (
-                <div key={l.to} className="flex items-center">
-                  <NavLink
-                    to={l.to}
-                    className={({ isActive }) =>
-                      [
-                        "px-4 py-2 text-sm font-semibold transition",
-                        "text-slate-700 hover:text-slate-900",
-                        isActive ? "underline underline-offset-4" : "",
-                      ].join(" ")
-                    }
-                  >
-                    {l.label}
-                  </NavLink>
+            {/* IZQUIERDA: LOGO COMPACTO */}
+            <div className="flex items-center gap-4">
+              <NavLink to="/" className="flex items-center gap-3">
+                <img
+                  src={logoCompacto}
+                  alt="IMMA"
+                  className="h-10 w-auto md:h-11 object-contain"
+                />
+              </NavLink>
 
-                  {/* Separador | */}
-                  {idx !== links.length - 1 && (
-                    <span className="mx-1 h-5 w-px bg-slate-400/70" />
-                  )}
-                </div>
-              ))}
-            </nav>
+              {/* Menú */}
+              <nav className="flex flex-wrap items-center">
+                {links.map((l, idx) => (
+                  <div key={l.to} className="flex items-center">
+                    <NavLink
+                      to={l.to}
+                      className={({ isActive }) =>
+                        [
+                          "px-4 py-2 text-sm font-semibold transition",
+                          "text-slate-700 hover:text-slate-900",
+                          isActive ? "underline underline-offset-4" : "",
+                        ].join(" ")
+                      }
+                    >
+                      {l.label}
+                    </NavLink>
 
-            {/* Redes (derecha) */}
+                    {idx !== links.length - 1 && (
+                      <span className="mx-1 h-5 w-px bg-slate-400/70" />
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </div>
+
+            {/* DERECHA: REDES */}
             <div className="hidden items-center gap-2 md:flex">
               <SocialIcon href="#" label="Facebook">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
@@ -120,6 +101,39 @@ export default function SiteHeader() {
                   <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.6-5.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.3 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2 0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.1.2 1.5.1.5-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.5-.3z" />
                 </svg>
               </SocialIcon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ESPACIADOR para que el contenido no quede debajo del menú fijo */}
+      <div className="h-[60px]" />
+
+      {/* BANNER MORADO GRANDE */}
+      <div
+        className="min-h-[260px] md:min-h-[340px] lg:min-h-[380px]"
+        style={{
+          backgroundImage:
+            "radial-gradient(1200px 300px at 50% 20%, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg, #7a1fa2 0%, #8e24aa 45%, #6a1b9a 100%), repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 10px)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="container-app py-10 md:py-12">
+          <div className="flex flex-col items-center justify-center gap-6 text-center">
+            {/* Logo grande centrado (sin placa blanca, para PNG transparente) */}
+            <div className="flex justify-center">
+              <div className="rounded-[2.25rem] p-2 md:p-3">
+                <img
+                  src={logoImma}
+                  alt="IMMA"
+                  className="
+                    h-28 w-auto sm:h-32 md:h-52 lg:h-60 object-contain
+                    drop-shadow-[0_18px_40px_rgba(0,0,0,0.35)]
+                    [filter:drop-shadow(0_0_18px_rgba(255,255,255,0.25))]
+                  "
+                />
+              </div>
             </div>
           </div>
         </div>
