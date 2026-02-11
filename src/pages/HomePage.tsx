@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import logoCasaMujer from "../assets/LOGOCASAMUJER.png"; // ajusta ruta si aplica
-import jefaUsuaria from "../assets/transver.png"; // ajusta ruta si aplica
 
 function QuickCard({
   title,
