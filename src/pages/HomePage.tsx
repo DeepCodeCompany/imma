@@ -1,24 +1,6 @@
 import { Link } from "react-router-dom";
-
-function StatCard({
-  title,
-  value,
-  hint,
-}: {
-  title: string;
-  value: string;
-  hint: string;
-}) {
-  return (
-    <div className="card p-6">
-      <div className="text-sm font-extrabold uppercase tracking-wide text-imma-700">
-        {title}
-      </div>
-      <div className="mt-2 text-3xl font-black">{value}</div>
-      <div className="mt-2 text-slate-600">{hint}</div>
-    </div>
-  );
-}
+import logoCasaMujer from "../assets/LOGOCASAMUJER.png"; // ajusta ruta si aplica
+import jefaUsuaria from "../assets/transver.png"; // ajusta ruta si aplica
 
 function QuickCard({
   title,
@@ -75,13 +57,22 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* BLOQUE LATERAL (mock de aviso / imagen) */}
+            {/* BLOQUE LATERAL */}
             <div className="rounded-3xl bg-[#efe9f8] p-6 md:p-8">
               <div className="text-sm font-extrabold uppercase tracking-wide text-imma-700">
                 Aviso importante
               </div>
-              <div className="mt-3 text-2xl font-black">Casas de la Mujer</div>
-              <p className="mt-3 text-slate-700">
+
+              {/* LOGO en lugar de texto "Casas de la Mujer" */}
+              <div className="mt-4">
+                <img
+                  src={logoCasaMujer}
+                  alt="Casas de la Mujer"
+                  className="h-14 md:h-16 w-auto object-contain"
+                />
+              </div>
+
+              <p className="mt-4 text-slate-700">
                 Consulta ubicaciones y formas de atención disponibles (contenido
                 mock por ahora).
               </p>
@@ -106,42 +97,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* STATS / INFO RÁPIDA */}
-      <section className="grid gap-6 md:grid-cols-3">
-        <StatCard
-          title="Servicios"
-          value="4+"
-          hint="Trabajo social, asesoría psicológica, jurídica y más (mock)."
-        />
-        <StatCard
-          title="Programas"
-          value="6+"
-          hint="Programas y talleres informativos con enfoque de apoyo."
-        />
-        <StatCard
-          title="Transparencia"
-          value="PDFs"
-          hint="Documentos disponibles para consulta y descarga."
-        />
-      </section>
-
       {/* ACCESOS RÁPIDOS */}
-      <section className="grid gap-6 lg:grid-cols-3">
-        <QuickCard
-          title="Servicios"
-          desc="Consulta qué ofrece el IMMA y cómo solicitar información."
-          to="/servicios"
-        />
-        <QuickCard
-          title="Consejos"
-          desc="Artículos tipo blog con recursos y recomendaciones."
-          to="/consejos"
-        />
-        <QuickCard
-          title="Transparencia"
-          desc="Acceso a documentos y archivos en PDF."
-          to="/transparencia"
-        />
+      <section className="space-y-5">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <QuickCard
+            title="Servicios"
+            desc="Consulta qué ofrece el IMMA y cómo solicitar información."
+            to="/servicios"
+          />
+          <QuickCard
+            title="Consejos"
+            desc="Artículos tipo blog con recursos y recomendaciones."
+            to="/consejos"
+          />
+          <QuickCard
+            title="Transparencia"
+            desc="Acceso a documentos y archivos en PDF."
+            to="/transparencia"
+          />
+        </div>
       </section>
 
       {/* BANDA FINAL */}

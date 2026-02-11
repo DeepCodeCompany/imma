@@ -1,6 +1,16 @@
 import { NavLink } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+
 import logoImma from "../../assets/LOGO-IMMA-PRINCIPAL.png";
 import logoCompacto from "../../assets/LOGO-IMMA-COMPACTO.png";
+import mujerImg from "../../assets/mujer.png";
+import verdeImg from "../../assets/verde.png";
+
+// ✅ Ejemplo: imágenes para el carrusel del banner
+
+import bgHeader1 from "../../assets/fondorosa.png";
+import bgHeader2 from "../../assets/fondo2.png";
+import bgHeader3 from "../../assets/fondo3.png";
 
 const links = [
   { to: "/quienes-somos", label: "¿Quiénes somos?" },
@@ -34,9 +44,108 @@ function SocialIcon({
   );
 }
 
+function ServiceCard({
+  title,
+  subtitle,
+  className = "",
+}: {
+  title: string;
+  subtitle?: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={[
+        // ✅ mismo look del header (gradiente)
+        "rounded-[1.25rem] bg-[linear-gradient(135deg,#7a1fa2_0%,#8e24aa_45%,#6a1b9a_100%)]",
+        "px-8 py-7 text-white shadow-[0_14px_35px_rgba(0,0,0,0.18)]",
+        "min-h-[120px] flex items-center justify-center text-center",
+        className,
+      ].join(" ")}
+    >
+      <div className="leading-tight">
+        <div className="text-2xl md:text-3xl font-extrabold tracking-wide uppercase">
+          {title}
+        </div>
+        {subtitle ? (
+          <div className="text-2xl md:text-3xl font-extrabold tracking-wide uppercase">
+            {subtitle}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function BannerBackgroundCarousel({
+  images,
+  intervalMs = 6500,
+}: {
+  images: string[];
+  intervalMs?: number;
+}) {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const t = setInterval(() => {
+      setIdx((p) => (p + 1) % images.length);
+    }, intervalMs);
+    return () => clearInterval(t);
+  }, [images.length, intervalMs]);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {images.map((src, i) => {
+        const active = i === idx;
+        return (
+          <div
+            key={src}
+            className={[
+              "absolute inset-0 transition-all duration-[1400ms] ease-in-out",
+              active ? "opacity-100" : "opacity-0",
+              // ✅ difuminado/zoom suave para “cinematic”
+              active ? "blur-0 scale-100" : "blur-sm scale-[1.04]",
+            ].join(" ")}
+          >
+            <img
+              src={src}
+              alt=""
+              draggable={false}
+              className="h-full w-full object-cover"
+            />
+            {/* overlay para que combine con morado */}
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(122,31,162,.78)_0%,rgba(142,36,170,.72)_45%,rgba(106,27,154,.78)_100%)]" />
+            {/* textura diagonal sutil */}
+            <div className="absolute inset-0 opacity-[0.16] [background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.12)_0px,rgba(255,255,255,.12)_2px,transparent_2px,transparent_12px)]" />
+          </div>
+        );
+      })}
+
+      {/* orbes suaves animados */}
+      <div className="absolute -top-20 -left-24 h-[320px] w-[320px] rounded-full bg-white/10 blur-2xl animate-[floatSlow_10s_ease-in-out_infinite]" />
+      <div className="absolute -bottom-24 -right-28 h-[380px] w-[380px] rounded-full bg-white/10 blur-2xl animate-[floatSlow_12s_ease-in-out_infinite]" />
+    </div>
+  );
+}
+
 export default function SiteHeader() {
+  const bannerImages = useMemo(() => [bgHeader1, bgHeader2, bgHeader3], []);
+
   return (
     <header className="w-full">
+      {/* Animaciones (sin tocar tailwind.config) */}
+      <style>{`
+        @keyframes floatSlow {
+          0%,100% { transform: translateY(0px); }
+          50% { transform: translateY(14px); }
+        }
+        @keyframes logoFloat {
+          0%,100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-8px) scale(1.01); }
+        }
+      `}</style>
+
       {/* BARRA GRIS DEL MENÚ (FIJA SIEMPRE) */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-[#E6E6EF] border-b border-slate-300 shadow-sm">
         <div className="container-app">
@@ -106,22 +215,16 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      {/* ESPACIADOR para que el contenido no quede debajo del menú fijo */}
+      {/* ESPACIADOR */}
       <div className="h-[60px]" />
 
-      {/* BANNER MORADO GRANDE */}
-      <div
-        className="min-h-[260px] md:min-h-[340px] lg:min-h-[380px]"
-        style={{
-          backgroundImage:
-            "radial-gradient(1200px 300px at 50% 20%, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg, #7a1fa2 0%, #8e24aa 45%, #6a1b9a 100%), repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 10px)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="container-app py-10 md:py-12">
+      {/* BANNER MORADO GRANDE con carrusel */}
+      <div className="relative min-h-[260px] md:min-h-[340px] lg:min-h-[380px]">
+        <BannerBackgroundCarousel images={bannerImages} intervalMs={6500} />
+
+        <div className="relative container-app py-10 md:py-12">
           <div className="flex flex-col items-center justify-center gap-6 text-center">
-            {/* Logo grande centrado (sin placa blanca, para PNG transparente) */}
+            {/* Logo grande centrado con “float” */}
             <div className="flex justify-center">
               <div className="rounded-[2.25rem] p-2 md:p-3">
                 <img
@@ -132,12 +235,76 @@ export default function SiteHeader() {
                     drop-shadow-[0_18px_40px_rgba(0,0,0,0.35)]
                     [filter:drop-shadow(0_0_18px_rgba(255,255,255,0.25))]
                   "
+                  style={{ animation: "logoFloat 6.5s ease-in-out infinite" }}
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* =======================
+          BLOQUE “RECUADROS”
+         ======================= */}
+      <section className="relative bg-white">
+        <div className="-mt-12 md:-mt-16 lg:-mt-20 pb-10">
+          <div className="w-full px-6 md:px-10 lg:px-14">
+            <div className="relative">
+              <div className="grid grid-cols-1 md:grid-cols-5 items-center pt-6">
+                <h2 className="md:col-span-2 text-center text-[26px] md:text-[44px] font-extrabold text-slate-300 tracking-tight">
+                  ¿Necesitas ayuda?
+                </h2>
+                <div className="hidden md:block" />
+                <h2 className="md:col-span-2 text-center text-[26px] md:text-[44px] font-extrabold text-slate-300 tracking-tight">
+                  Aquí te apoyamos
+                </h2>
+              </div>
+
+              <div className="relative pt-6 pb-14">
+                <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-[55%]">
+                  <img
+                    src={mujerImg}
+                    alt="Mujer IMMA"
+                    className="h-[220px] md:h-[280px] lg:h-[320px] w-auto object-contain drop-shadow-[0_22px_40px_rgba(0,0,0,0.25)]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-4 items-center">
+                  <ServiceCard
+                    title="TRABAJO"
+                    subtitle="SOCIAL"
+                    className="w-full"
+                  />
+                  <ServiceCard
+                    title="ASESORÍA"
+                    subtitle="JURÍDICA"
+                    className="w-full"
+                  />
+                  <div className="hidden md:block" />
+                  <ServiceCard
+                    title="ASESORÍA"
+                    subtitle="PSICOLÓGICA"
+                    className="w-full"
+                  />
+                  <ServiceCard
+                    title="ECONOMÍA"
+                    subtitle="SOCIAL"
+                    className="w-full"
+                  />
+                </div>
+
+                <div className="absolute left-1 bottom-0 z-30 md:left-4 translate-y-[15%]">
+                  <img
+                    src={verdeImg}
+                    alt="Redes IMMA"
+                    className="h-16 md:h-20 w-auto object-contain drop-shadow-[0_14px_25px_rgba(0,0,0,0.18)]"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </header>
   );
 }

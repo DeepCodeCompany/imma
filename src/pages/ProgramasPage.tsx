@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import programasCortosImg from "../assets/ProgramasCorte.jpg";
 
 type Programa = {
   titulo: string;
@@ -33,9 +34,23 @@ export default function ProgramasPage() {
 
       <section className="card p-8 md:p-10">
         <h2 className="section-title">Programas y acciones</h2>
-        <p className="mt-4 text-lg text-slate-700">
+        <p className="mt-6 text-lg text-slate-700">
           Aquí mostraremos programas del IMMA (por ahora es contenido mock).
         </p>
+        {/* IMAGEN GRANDE CENTRADA (aquí, antes de la descripción) */}
+        <div className="mt-6">
+          <img
+            src={programasCortosImg}
+            alt="Programas IMMA"
+            className="
+              mx-auto w-full max-w-5xl
+              rounded-3xl
+              shadow-[0_14px_34px_rgba(0,0,0,0.12)]
+              ring-1 ring-black/5
+              object-contain
+            "
+          />
+        </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {PROGRAMAS.map((p) => (
