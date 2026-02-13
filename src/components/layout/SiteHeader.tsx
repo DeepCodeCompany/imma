@@ -3,11 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 
 import logoImma from "../../assets/LOGO-IMMA-PRINCIPAL.png";
 import logoCompacto from "../../assets/LOGO-IMMA-COMPACTO.png";
-import mujerImg from "../../assets/mujer.png";
 import verdeImg from "../../assets/verde.png";
 
 // ✅ Ejemplo: imágenes para el carrusel del banner
-
 import bgHeader1 from "../../assets/fondorosa.png";
 import bgHeader2 from "../../assets/fondo2.png";
 import bgHeader3 from "../../assets/fondo3.png";
@@ -56,19 +54,18 @@ function ServiceCard({
   return (
     <div
       className={[
-        // ✅ mismo look del header (gradiente)
         "rounded-[1.25rem] bg-[linear-gradient(135deg,#7a1fa2_0%,#8e24aa_45%,#6a1b9a_100%)]",
-        "px-8 py-7 text-white shadow-[0_14px_35px_rgba(0,0,0,0.18)]",
-        "min-h-[120px] flex items-center justify-center text-center",
+        "px-6 md:px-8 py-6 md:py-7 text-white shadow-[0_14px_35px_rgba(0,0,0,0.18)]",
+        "min-h-[112px] md:min-h-[120px] flex items-center justify-center text-center",
         className,
       ].join(" ")}
     >
       <div className="leading-tight">
-        <div className="text-2xl md:text-3xl font-extrabold tracking-wide uppercase">
+        <div className="text-xl md:text-3xl font-extrabold tracking-wide uppercase">
           {title}
         </div>
         {subtitle ? (
-          <div className="text-2xl md:text-3xl font-extrabold tracking-wide uppercase">
+          <div className="text-xl md:text-3xl font-extrabold tracking-wide uppercase">
             {subtitle}
           </div>
         ) : null}
@@ -104,7 +101,6 @@ function BannerBackgroundCarousel({
             className={[
               "absolute inset-0 transition-all duration-[1400ms] ease-in-out",
               active ? "opacity-100" : "opacity-0",
-              // ✅ difuminado/zoom suave para “cinematic”
               active ? "blur-0 scale-100" : "blur-sm scale-[1.04]",
             ].join(" ")}
           >
@@ -114,15 +110,12 @@ function BannerBackgroundCarousel({
               draggable={false}
               className="h-full w-full object-cover"
             />
-            {/* overlay para que combine con morado */}
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(122,31,162,.78)_0%,rgba(142,36,170,.72)_45%,rgba(106,27,154,.78)_100%)]" />
-            {/* textura diagonal sutil */}
             <div className="absolute inset-0 opacity-[0.16] [background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.12)_0px,rgba(255,255,255,.12)_2px,transparent_2px,transparent_12px)]" />
           </div>
         );
       })}
 
-      {/* orbes suaves animados */}
       <div className="absolute -top-20 -left-24 h-[320px] w-[320px] rounded-full bg-white/10 blur-2xl animate-[floatSlow_10s_ease-in-out_infinite]" />
       <div className="absolute -bottom-24 -right-28 h-[380px] w-[380px] rounded-full bg-white/10 blur-2xl animate-[floatSlow_12s_ease-in-out_infinite]" />
     </div>
@@ -134,7 +127,6 @@ export default function SiteHeader() {
 
   return (
     <header className="w-full">
-      {/* Animaciones (sin tocar tailwind.config) */}
       <style>{`
         @keyframes floatSlow {
           0%,100% { transform: translateY(0px); }
@@ -146,11 +138,10 @@ export default function SiteHeader() {
         }
       `}</style>
 
-      {/* BARRA GRIS DEL MENÚ (FIJA SIEMPRE) */}
+      {/* BARRA GRIS DEL MENÚ */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-[#E6E6EF] border-b border-slate-300 shadow-sm">
         <div className="container-app">
           <div className="flex items-center justify-between gap-4 py-3">
-            {/* IZQUIERDA: LOGO COMPACTO */}
             <div className="flex items-center gap-4">
               <NavLink to="/" className="flex items-center gap-3">
                 <img
@@ -160,7 +151,6 @@ export default function SiteHeader() {
                 />
               </NavLink>
 
-              {/* Menú */}
               <nav className="flex flex-wrap items-center">
                 {links.map((l, idx) => (
                   <div key={l.to} className="flex items-center">
@@ -185,7 +175,6 @@ export default function SiteHeader() {
               </nav>
             </div>
 
-            {/* DERECHA: REDES */}
             <div className="hidden items-center gap-2 md:flex">
               <SocialIcon href="#" label="Facebook">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
@@ -215,16 +204,14 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      {/* ESPACIADOR */}
       <div className="h-[60px]" />
 
-      {/* BANNER MORADO GRANDE con carrusel */}
+      {/* BANNER */}
       <div className="relative min-h-[260px] md:min-h-[340px] lg:min-h-[380px]">
         <BannerBackgroundCarousel images={bannerImages} intervalMs={6500} />
 
         <div className="relative container-app py-10 md:py-12">
           <div className="flex flex-col items-center justify-center gap-6 text-center">
-            {/* Logo grande centrado con “float” */}
             <div className="flex justify-center">
               <div className="rounded-[2.25rem] p-2 md:p-3">
                 <img
@@ -243,33 +230,56 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      {/* =======================
-          BLOQUE “RECUADROS”
-         ======================= */}
+      {/* BLOQUE “RECUADROS” (RESPONSIVO, SIN MUJER) */}
       <section className="relative bg-white">
-        <div className="-mt-12 md:-mt-16 lg:-mt-20 pb-10">
+        <div className="-mt-10 md:-mt-16 lg:-mt-20 pb-10">
           <div className="w-full px-6 md:px-10 lg:px-14">
             <div className="relative">
-              <div className="grid grid-cols-1 md:grid-cols-5 items-center pt-6">
-                <h2 className="md:col-span-2 text-center text-[26px] md:text-[44px] font-extrabold text-slate-300 tracking-tight">
-                  ¿Necesitas ayuda?
+              {/* títulos */}
+              <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-2 pt-6">
+                <h2 className="text-center">
+                  <span
+                    className="
+                      block
+                      text-[34px] sm:text-[44px] md:text-[56px] lg:text-[64px]
+                      tracking-tight leading-[0.95]
+                      text-slate-300/80
+                      select-none
+                    "
+                  >
+                    <span className="font-extrabold">¿Necesitas</span>{" "}
+                    <span className="font-black">ayuda?</span>
+                  </span>
                 </h2>
-                <div className="hidden md:block" />
-                <h2 className="md:col-span-2 text-center text-[26px] md:text-[44px] font-extrabold text-slate-300 tracking-tight">
-                  Aquí te apoyamos
+
+                <h2 className="text-center">
+                  <span
+                    className="
+                      block
+                      text-[34px] sm:text-[44px] md:text-[56px] lg:text-[64px]
+                      tracking-tight leading-[0.95]
+                      text-slate-300/80
+                      select-none
+                    "
+                  >
+                    <span className="font-extrabold">Aquí te</span>{" "}
+                    <span className="font-black">apoyamos</span>
+                  </span>
                 </h2>
               </div>
 
-              <div className="relative pt-6 pb-14">
-                <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-[55%]">
+              {/* ✅ Grid + sticker verde (bajamos los cuadros y el sticker ya no queda arriba) */}
+              <div className="mx-auto max-w-6xl relative mt-10 md:mt-14">
+                {/* ✅ verde: más abajo, tocando el primer recuadro por abajo */}
+                <div className="absolute -left-38 top-0 z-30 translate-y-20">
                   <img
-                    src={mujerImg}
-                    alt="Mujer IMMA"
-                    className="h-[220px] md:h-[280px] lg:h-[320px] w-auto object-contain drop-shadow-[0_22px_40px_rgba(0,0,0,0.25)]"
+                    src={verdeImg}
+                    alt="Redes IMMA"
+                    className="h-14 md:h-20 w-auto object-contain drop-shadow-[0_14px_25px_rgba(0,0,0,0.18)]"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-4 items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 items-stretch">
                   <ServiceCard
                     title="TRABAJO"
                     subtitle="SOCIAL"
@@ -280,7 +290,6 @@ export default function SiteHeader() {
                     subtitle="JURÍDICA"
                     className="w-full"
                   />
-                  <div className="hidden md:block" />
                   <ServiceCard
                     title="ASESORÍA"
                     subtitle="PSICOLÓGICA"
@@ -290,14 +299,6 @@ export default function SiteHeader() {
                     title="ECONOMÍA"
                     subtitle="SOCIAL"
                     className="w-full"
-                  />
-                </div>
-
-                <div className="absolute left-1 bottom-0 z-30 md:left-4 translate-y-[15%]">
-                  <img
-                    src={verdeImg}
-                    alt="Redes IMMA"
-                    className="h-16 md:h-20 w-auto object-contain drop-shadow-[0_14px_25px_rgba(0,0,0,0.18)]"
                   />
                 </div>
               </div>

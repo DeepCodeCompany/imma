@@ -10,7 +10,11 @@ import ConsejosPage from "../../pages/ConsejosPage";
 import ConsejoDetailPage from "../../pages/ConsejoDetailPage";
 import ProgramasPage from "../../pages/ProgramasPage";
 import EventosPage from "../../pages/EventosPage";
-import TransparenciaPage from "../../pages/TransparenciaPage";
+
+// ✅ Nuevas pantallas de Transparencia
+import TransparenciaIndexPage from "../../pages/TransparenciaIndexPage";
+import TransparenciaMesPage from "../../pages/TransparenciaMesPage";
+
 import NotFoundPage from "../../pages/NotFoundPage";
 
 export default function AppRouter() {
@@ -30,7 +34,13 @@ export default function AppRouter() {
 
         <Route path="/programas" element={<ProgramasPage />} />
         <Route path="/eventos" element={<EventosPage />} />
-        <Route path="/transparencia" element={<TransparenciaPage />} />
+
+        {/* ✅ Transparencia (nuevo flujo) */}
+        <Route path="/transparencia" element={<TransparenciaIndexPage />} />
+        <Route
+          path="/transparencia/:year/:month"
+          element={<TransparenciaMesPage />}
+        />
       </Route>
 
       <Route path="/home" element={<Navigate to="/" replace />} />
